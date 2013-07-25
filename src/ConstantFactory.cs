@@ -30,6 +30,15 @@ namespace NancyTest
             return null;
         }
 
+        public Constant CreateIntOrBool(int id)
+        {
+            var intConstant = new IntConstant(id);
+
+            Storage.Add(intConstant.id, intConstant);
+
+            return intConstant;
+        }
+
         public static Constant GetConstant(int id)
         {
             if (Storage.ContainsKey(id))

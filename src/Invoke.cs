@@ -24,9 +24,7 @@
             var func = functions.IdToFunction[this.function];
             var result = func.Invoke(unwrappedX.value, unwrappedY.value);
 
-            var constant = new IntConstant(result);
-            
-            ConstantFactory.Storage.Add(constant.id, constant);
+            var constant = new ConstantFactory().CreateIntOrBool(result);
 
             this.id = constant.id;
         }
