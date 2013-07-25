@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Constant.cs" />
     <Compile Include="ConstantFactory.cs" />
+    <Compile Include="Functions.cs" />
     <Compile Include="FunctionsModule.cs" />
     <Compile Include="HackKrkModule.cs" />
     <Compile Include="IntConstant.cs" />
