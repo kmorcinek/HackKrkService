@@ -4,6 +4,7 @@
     {
         public Constant(int id, string type)
         {
+            this.kind = "constant";
             this.id = id;
             this.type = type;
         }
