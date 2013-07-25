@@ -2,7 +2,7 @@
 {
     class IntConstant : Constant
     {
-        public IntConstant(int id, int value) : base(id, "int")
+        public IntConstant(int id, int value) : base("int", id)
         {
             this.value = value;
         }

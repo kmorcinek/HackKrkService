@@ -2,14 +2,15 @@
 {
     internal class Constant
     {
-        public Constant(int id, string type)
+        public string kind = HackKrkModule.Constant;
+
+        public int id { get; set; }
+        public string type { get; set; }
+        
+        public Constant(string type, int id)
         {
             this.id = id;
             this.type = type;
         }
-
-        public int id { get; set; }
-        public string kind = HackKrkModule.Constant;
-        public string type { get; set; }
     }
 }

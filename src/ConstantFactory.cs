@@ -11,7 +11,7 @@ namespace NancyTest
         {
             var type = (string)request.type;
             Console.WriteLine("type: {0}", type);
-            if (type == "int")
+            if (type == HackKrkModule.Integer)
             {
                 int value;
                 var val = (string) request.value;

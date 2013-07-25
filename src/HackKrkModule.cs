@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using System.Web;
 using Nancy;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using HttpStatusCode = Nancy.HttpStatusCode;
 
@@ -13,7 +11,8 @@ namespace NancyTest
     public class HackKrkModule : NancyModule
     {
         public const string Constant = "constant";
-        private const string Invoke = "invoke";
+        public const string Invoke = "invoke";
+        public const string Integer = "int";
 
         public static int Incrementer = 0;
         static Dictionary<int, object> _storage = new Dictionary<int, object>();
@@ -36,8 +35,7 @@ namespace NancyTest
                             return HandleConstants(factory, json);
 
                         case Invoke:
-                            return Response.AsJson("");
-//                            return HandleInvokes(factory, json);
+                            return HandleInvokes(factory, json);
 
                         default:
                             return Response.AsJson("");
@@ -74,15 +72,9 @@ namespace NancyTest
 
         private dynamic HandleInvokes(ConstantFactory factory, dynamic json)
         {
-            var functions = new Functions();
+            var invoke = new Invoke((int)json.function, json.arguments);
 
-            var functionId = (int)json.function;
-
-            var arguments = json.arguments;
-            dynamic x = arguments[0];
-            dynamic y = arguments[1];
-
-            return functions.IdToFunction[functionId].Invoke(x, y);
+            return Response.AsJson(invoke, HttpStatusCode.Created);
         }
     }
 }
