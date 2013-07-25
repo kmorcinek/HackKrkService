@@ -15,7 +15,6 @@ namespace NancyTest
         public const string Integer = "int";
 
         public static int Incrementer = 0;
-        public static Dictionary<int, Constant> _storage = new Dictionary<int, Constant>();
 
         public HackKrkModule()
         {
@@ -46,24 +45,15 @@ namespace NancyTest
                 {
                     var id = (int)x.id;
 
-                    return GetConstant(id);
+                    return ConstantFactory.GetConstant(id);
                 };
 
             Get["/nodes/{id}/evaluate"] = x =>
             {
                 var id = (int)x.id;
-                var constant = (IntConstant)GetConstant(id);
+                var constant = (IntConstant)ConstantFactory.GetConstant(id);
                 return Response.AsJson(new {result = constant.value});
             };
-        }
-
-        public static Constant GetConstant(int id)
-        {
-            if (_storage.ContainsKey(id))
-            {
-                return _storage[id];
-            }
-            return null;
         }
 
         private dynamic HandleConstants(ConstantFactory factory, dynamic json)
@@ -71,10 +61,7 @@ namespace NancyTest
             try
             {
                 Constant constant = factory.Create(json);
-                if (constant != null)
-                {
-                    _storage.Add(constant.id, constant);
-                }
+
                 return Response.AsJson(constant, HttpStatusCode.Created);
             }
             catch (HttpException exception)

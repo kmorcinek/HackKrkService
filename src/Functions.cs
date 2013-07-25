@@ -15,7 +15,6 @@ namespace NancyTest
 
             NameToId["mult"] = 4;
             IdToFunction[4] = (x, y) => x * y;
-
         }
     }
 }

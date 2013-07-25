@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web;
 
 namespace NancyTest
 {
     class ConstantFactory
     {
-        private static int _id = 0;
+        public static Dictionary<int, Constant> Storage = new Dictionary<int, Constant>();
 
         public Constant Create(dynamic request)
         {
@@ -14,12 +15,26 @@ namespace NancyTest
             if (type == HackKrkModule.Integer)
             {
                 int value;
-                var val = (string) request.value;
-                if (int.TryParse(val, out value) == false)
+                var val = (string)request.value;
+                if (Int32.TryParse(val, out value) == false)
                 {
                     throw new HttpException(422, "Could not parse integer");
                 }
-                return new IntConstant(value);
+
+                var intConstant = new IntConstant(value);
+
+                Storage.Add(intConstant.id, intConstant);
+
+                return intConstant;
+            }
+            return null;
+        }
+
+        public static Constant GetConstant(int id)
+        {
+            if (Storage.ContainsKey(id))
+            {
+                return Storage[id];
             }
             return null;
         }
