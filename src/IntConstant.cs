@@ -2,9 +2,9 @@
 {
     class IntConstant : Constant
     {
-        public IntConstant(int id, dynamic request) : base(id, "int")
+        public IntConstant(int id, int value) : base(id, "int")
         {
-            value = request.value;
+            this.value = value;
         }
         public int value { get; set; }
     }
