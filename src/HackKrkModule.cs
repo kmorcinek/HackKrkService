@@ -12,7 +12,8 @@ namespace NancyTest
 {
     public class HackKrkModule : NancyModule
     {
-        Dictionary<int, object> _storage = new Dictionary<int, object>(); 
+        public static int Incrementer = 0;
+        static Dictionary<int, object> _storage = new Dictionary<int, object>();
 
         public HackKrkModule()
         {
@@ -25,7 +26,7 @@ namespace NancyTest
                     dynamic json = JObject.Parse(reader.ReadToEnd());
 
                     Console.WriteLine("GET /nodes {0}", json);
-                    
+
                     try
                     {
                         Constant constant = factory.Create(json);
@@ -37,13 +38,13 @@ namespace NancyTest
                     }
                     catch (HttpException exception)
                     {
-                        return Response.AsJson(new {error = exception.Message}, (HttpStatusCode) exception.GetHttpCode());
+                        return Response.AsJson(new { error = exception.Message }, (HttpStatusCode)exception.GetHttpCode());
                     }
                 };
 
             Get["/nodes/{id}"] = x =>
                 {
-                    var id = (int) x.id;
+                    var id = (int)x.id;
                     if (_storage.ContainsKey(id))
                     {
                         return _storage[id];

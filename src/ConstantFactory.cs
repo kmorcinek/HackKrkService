@@ -5,7 +5,7 @@ namespace NancyTest
 {
     class ConstantFactory
     {
-        private int _id = 0;
+        private static int _id = 0;
 
         public Constant Create(dynamic request)
         {
@@ -19,7 +19,7 @@ namespace NancyTest
                 {
                     throw new HttpException(422, "Could not parse integer");
                 }
-                return new IntConstant(++_id, value);
+                return new IntConstant(++HackKrkModule.Incrementer, value);
             }
             return null;
         }
