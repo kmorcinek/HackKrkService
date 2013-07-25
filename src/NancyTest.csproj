@@ -62,6 +62,7 @@
     <Compile Include="FunctionsModule.cs" />
     <Compile Include="HackKrkModule.cs" />
     <Compile Include="IntConstant.cs" />
+    <Compile Include="Invoke.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

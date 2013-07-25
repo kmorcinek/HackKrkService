@@ -12,6 +12,9 @@ namespace NancyTest
 {
     public class HackKrkModule : NancyModule
     {
+        private const string Constant = "constant";
+        private const string Invoke = "invoke";
+
         public static int Incrementer = 0;
         static Dictionary<int, object> _storage = new Dictionary<int, object>();
 
@@ -27,18 +30,16 @@ namespace NancyTest
 
                     Console.WriteLine("GET /nodes {0}", json);
 
-                    try
+                    switch ((string)json.kind)
                     {
-                        Constant constant = factory.Create(json);
-                        if (constant != null)
-                        {
-                            _storage.Add(constant.id, constant);
-                        }
-                        return Response.AsJson(constant, HttpStatusCode.Created);
-                    }
-                    catch (HttpException exception)
-                    {
-                        return Response.AsJson(new { error = exception.Message }, (HttpStatusCode)exception.GetHttpCode());
+                        case Constant:  
+                            return HandleConstants(factory, json);
+
+                        case Invoke:
+                            return HandleInvokes(factory, json);
+
+                        default:
+                            return Response.AsJson("");
                     }
                 };
 
@@ -51,6 +52,36 @@ namespace NancyTest
                     }
                     return null;
                 };
+        }
+
+        private dynamic HandleConstants(ConstantFactory factory, dynamic json)
+        {
+            try
+            {
+                Constant constant = factory.Create(json);
+                if (constant != null)
+                {
+                    _storage.Add(constant.id, constant);
+                }
+                return Response.AsJson(constant, HttpStatusCode.Created);
+            }
+            catch (HttpException exception)
+            {
+                return Response.AsJson(new {error = exception.Message}, (HttpStatusCode) exception.GetHttpCode());
+            }
+        }
+
+        private dynamic HandleInvokes(ConstantFactory factory, dynamic json)
+        {
+            var functions = new Functions();
+
+            var functionId = (int)json.function;
+
+            var arguments = json.arguments;
+            dynamic x = arguments[0];
+            dynamic y = arguments[1];
+
+            return functions.IdToFunction[functionId].Invoke(x, y);
         }
     }
 }
