@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Web;
 using Nancy;
@@ -12,7 +11,8 @@ namespace NancyTest
     {
         public const string Constant = "constant";
         public const string Invoke = "invoke";
-        public const string Integer = "int";
+        public const string Int = "int";
+        public const string Bool = "bool";
 
         public static int Incrementer = 0;
 
@@ -51,8 +51,21 @@ namespace NancyTest
             Get["/nodes/{id}/evaluate"] = x =>
             {
                 var id = (int)x.id;
-                var constant = (IntConstant)ConstantFactory.GetConstant(id);
-                return Response.AsJson(new {result = constant.value});
+                var constant = ConstantFactory.GetConstant(id);
+
+                var intConstant = constant as IntConstant;
+                if (intConstant != null)
+                {
+                    return Response.AsJson(new { result = intConstant.value });
+                }
+
+                var boolConstant = constant as BoolConstant;
+                if (boolConstant != null)
+                {
+                    return Response.AsJson(new { result = boolConstant.value });
+                }
+                
+                throw new NotImplementedException();
             };
         }
 

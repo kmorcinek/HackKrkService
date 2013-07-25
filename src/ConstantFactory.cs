@@ -12,7 +12,7 @@ namespace NancyTest
         {
             var type = (string)request.type;
             Console.WriteLine("type: {0}", type);
-            if (type == HackKrkModule.Integer)
+            if (type == HackKrkModule.Int)
             {
                 int value;
                 var val = (string)request.value;
@@ -30,13 +30,26 @@ namespace NancyTest
             return null;
         }
 
-        public Constant CreateIntOrBool(int id)
+        public Constant CreateIntOrBool(int result)
         {
-            var intConstant = new IntConstant(id);
+            Constant constant = null;
+            if (result == 0)
+            {
+                constant = new BoolConstant(false);
+            }
+            else if (result == 1)
+            {
+                constant = new BoolConstant(true);
+                
+            }
+            else
+            {
+                constant = new IntConstant(result);
+            }
 
-            Storage.Add(intConstant.id, intConstant);
+            Storage.Add(constant.id, constant);
 
-            return intConstant;
+            return constant;
         }
 
         public static Constant GetConstant(int id)
