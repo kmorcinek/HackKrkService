@@ -12,6 +12,10 @@ namespace NancyTest
         {
             NameToId["add"] = 3;
             IdToFunction[3] = (x, y) => x + y;
+
+            NameToId["mult"] = 4;
+            IdToFunction[4] = (x, y) => x * y;
+
         }
     }
 }

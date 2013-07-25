@@ -8,7 +8,17 @@ namespace NancyTest
         {
             Get["/functions/builtin/{name}"] = args =>
                 {
-                    return Response.AsJson(new {id = 3});
+                    var functions = new Functions();
+                    var functionName = (string) args.name;
+
+                    if (functions.NameToId.ContainsKey(functionName))
+                    {
+                        var functionId = functions.NameToId[functionName];
+
+                        return Response.AsJson(new { id = functionId }); 
+                    }
+
+                    return Response.AsJson("");
                 };
         }
     }
