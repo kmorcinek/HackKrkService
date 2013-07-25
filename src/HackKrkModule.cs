@@ -12,7 +12,7 @@ namespace NancyTest
 {
     public class HackKrkModule : NancyModule
     {
-        private const string Constant = "constant";
+        public const string Constant = "constant";
         private const string Invoke = "invoke";
 
         public static int Incrementer = 0;
@@ -36,7 +36,8 @@ namespace NancyTest
                             return HandleConstants(factory, json);
 
                         case Invoke:
-                            return HandleInvokes(factory, json);
+                            return Response.AsJson("");
+//                            return HandleInvokes(factory, json);
 
                         default:
                             return Response.AsJson("");

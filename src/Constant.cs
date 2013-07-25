@@ -4,13 +4,12 @@
     {
         public Constant(int id, string type)
         {
-            this.kind = "constant";
             this.id = id;
             this.type = type;
         }
 
         public int id { get; set; }
-        public string kind { get; set; }
+        public string kind = HackKrkModule.Constant;
         public string type { get; set; }
     }
 }
