@@ -1,15 +1,15 @@
 ﻿namespace NancyTest
 {
-    internal class Constant
+    public class Constant
     {
         public string kind = HackKrkModule.Constant;
 
         public int id { get; set; }
         public string type { get; set; }
         
-        public Constant(string type, int id)
+        public Constant(string type)
         {
-            this.id = id;
+            this.id = ++HackKrkModule.Incrementer;
             this.type = type;
         }
     }

@@ -2,7 +2,7 @@
 {
     class IntConstant : Constant
     {
-        public IntConstant(int id, int value) : base("int", id)
+        public IntConstant(int value) : base(HackKrkModule.Integer)
         {
             this.value = value;
         }

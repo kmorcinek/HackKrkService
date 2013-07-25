@@ -19,7 +19,7 @@ namespace NancyTest
                 {
                     throw new HttpException(422, "Could not parse integer");
                 }
-                return new IntConstant(++HackKrkModule.Incrementer, value);
+                return new IntConstant(value);
             }
             return null;
         }
